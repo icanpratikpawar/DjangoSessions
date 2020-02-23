@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View Books</title>
+
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/css/util.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/main.css" />
+    <!--===============================================================================================-->
+  </head>
+  <body style="background-image: url('/static/images/modern-lamp-books.jpg');background-size:cover;">
+    <p class="input100" style="color: black;">View Books Here:</p>
+    <hr>
+    <br>
+    <table border="1" width="800">
+      <tr>
+        <th>Book No</th>
+        <th>Book_name</th>
+        <th>author_name</th>
+        <th>Book_type</th>
+        <th>Update_Details</th>
+        <th>Delete_Details</th>
+      </tr>
+      {% for book in books %}
+      <tr>
+        <th>{{book.id}}</th>
+        <td>{{ book.book_name }}</td>
+        <td>{{ book.author_name }}</td>
+        <td>{{ book.book_type }}</td>
+        <td><a href="/bookview/update/{{book.id}}">Update</a></td>
+        <td><a href="/delete_record/{{book.id}}/">Delete</a></td>
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>
