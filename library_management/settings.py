@@ -33,11 +33,17 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'library_app.apps.LibraryAppConfig',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+
 ]
 
 MIDDLEWARE = [
@@ -129,6 +135,10 @@ EMAIL_HOST_PASSWORD = 'pr@tik12345'
 # Expire my session on browser close
 # SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
+
+#Auth authentication google
+SITE_ID=1
+LOGIN_REDIRECT_URL='/'
 
 # Static files (CSS, JavaScript, Images)
 

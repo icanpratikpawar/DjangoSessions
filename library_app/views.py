@@ -3,7 +3,7 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect
 from .models import Login, Books
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail
-import library_management.settings as lib
+from django.conf import settings
 
 
 def facebook(request):
@@ -20,7 +20,7 @@ def email_verify(request):
 
 def send_email(request):
     send_mail("Hello Dada", "This is my first automated message\n\nhttp://127.0.0.1:8000/",
-              lib.EMAIL_HOST_USER, [request.POST['send_email']])
+              settings.EMAIL_HOST_USER, [request.POST['send_email']])
     return redirect('/')
 
 
