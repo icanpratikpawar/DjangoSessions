@@ -1,9 +1,28 @@
 from django.shortcuts import redirect, render
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from .models import Login, Books
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, PermissionDenied, ValidationError
 from django.core.mail import send_mail
 from django.conf import settings
+from django.urls import resolve
+
+# Decorators function to prohibit illegal access to
+def prohibit_url_access(func):
+    def wrap(request, *args, **kwargs):
+        if "user" in request.session:
+            return func(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+    return wrap
+
+
+# def check_url(func):
+#     def wrap(request, *args, **kwargs):
+#         if resolve(request.path_info).url_name == "index" and "user" in request.session:
+#             return redirect('/home')
+#         else:
+#             print("hii")
+#     return wrap
 
 
 def facebook(request):
@@ -23,12 +42,11 @@ def send_email(request):
               settings.EMAIL_HOST_USER, [request.POST['send_email']])
     return redirect('/')
 
-
+@prohibit_url_access
 def logout(request):
     del request.session["user"]
     # return render(request, 'index.html', {'text': 'This is my text & I am its creator'})
     return redirect('/')
-
 
 def index(request):
     if "user" in request.session:
@@ -37,24 +55,25 @@ def index(request):
         # Starting page of my website
         return render(request, 'index.html')
 
-
 def home(request):
     # Method to verify the right login details by admin
     if "user" not in request.session:
-        a = Login.objects.filter(
-            user_name=request.POST['username'], pass_word=request.POST['pswd'])
-        if a:
-            request.session["user"] = a[0].user_name
-            return render(request, "home.html", {'user': request.session["user"]})
-        else:
-            return HttpResponse("Errorr")
+        try:
+            a = Login.objects.filter(
+                user_name=request.POST['username'], pass_word=request.POST['pswd'])
+            if a:
+                request.session["user"] = a[0].user_name
+                return render(request, "home.html", {'user': request.session["user"]})
+            else:
+                return render(request, 'index.html', {'User': 'Check the username & password'})
+        except Exception:
+            raise PermissionDenied
+
     else:
-        # return render(request, 'index.html', {'text': 'This is my text & I am its creator'})
-        print("Hello")
-        print(request.session.get_expiry_date())
         return render(request, "home.html", {'user': request.session["user"]})
 
 
+@prohibit_url_access
 def books_validate(request):
     book_name = request.POST['bookname']
     author_name = request.POST['authorname']
@@ -65,11 +84,13 @@ def books_validate(request):
     return redirect("/home")
 
 
+@prohibit_url_access
 def book_view(request):
     query = {'books': Books.objects.all()}  # [0:2]
     return render(request, 'bookview.html', query)
 
 
+@prohibit_url_access
 def delete_record(request, id=None):
     Books.objects.filter(id=id).delete()
     querys = {'Delete': 'Record Deleted Succesfully!'}
@@ -77,11 +98,13 @@ def delete_record(request, id=None):
     return redirect('/bookview')
 
 
+@prohibit_url_access
 def update(request, id):
     return render(request, 'update-record.html', {'id': id, 'user': request.session["user"],
                                                   'books': Books.objects.get(id=id)})
 
 
+@prohibit_url_access
 def update_record(request, id=None):
     a = Books.objects.filter(id=id)
     if a:

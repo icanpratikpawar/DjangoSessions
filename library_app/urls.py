@@ -7,7 +7,7 @@ urlpatterns = [
     path('google_auth/', TemplateView.as_view(
         template_name='/home/pratik/Workspace/Djangoprograms/library_management/templates/gooogle-auth.html')),
     path('sendemail/', views.send_email, name="sendemail"),
-    path('', views.index),
+    path('', views.index, name="index"),
     path('books_validate/', views.books_validate, name="bookvalidate"),
     path('bookview/', views.book_view, name="bookview"),
     path('bookview/update/<str:id>/', views.update, name="update"),
