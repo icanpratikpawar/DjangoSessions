@@ -4,6 +4,8 @@ from django.db import models
 class Login(models.Model):
     user_name=models.TextField(blank=True)
     pass_word=models.TextField()
+    email_id=models.EmailField(max_length=255, blank=False)
+    current_date=models.DateTimeField(auto_now_add=True)
     
 class Books(models.Model):
     book_name = models.TextField(blank = True)

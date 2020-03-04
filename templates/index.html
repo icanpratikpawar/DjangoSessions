@@ -10,49 +10,49 @@
     <link
       rel="stylesheet"
       type="text/css"
-      href="static/vendor/bootstrap/css/bootstrap.min.css"
+      href="/static/vendor/bootstrap/css/bootstrap.min.css"
     />
     <!--===============================================================================================-->
     <link
       rel="stylesheet"
       type="text/css"
-      href="static/fonts/font-awesome-4.7.0/css/font-awesome.min.css"
+      href="/static/fonts/font-awesome-4.7.0/css/font-awesome.min.css"
     />
     <!--===============================================================================================-->
     <link
       rel="stylesheet"
       type="text/css"
-      href="static/fonts/Linearicons-Free-v1.0.0/icon-font.min.css"
+      href="/static/fonts/Linearicons-Free-v1.0.0/icon-font.min.css"
     />
     <!--===============================================================================================-->
     <link
       rel="stylesheet"
       type="text/css"
-      href="static/vendor/animate/animate.css"
+      href="/static/vendor/animate/animate.css"
     />
     <!--===============================================================================================-->
     <link
       rel="stylesheet"
       type="text/css"
-      href="static/vendor/css-hamburgers/hamburgers.min.css"
+      href="/static/vendor/css-hamburgers/hamburgers.min.css"
     />
     <!--===============================================================================================-->
     <link
       rel="stylesheet"
       type="text/css"
-      href="static/vendor/animsition/css/animsition.min.css"
+      href="/static/vendor/animsition/css/animsition.min.css"
     />
     <!--===============================================================================================-->
     <link
       rel="stylesheet"
       type="text/css"
-      href="static/vendor/select2/select2.min.css"
+      href="/static/vendor/select2/select2.min.css"
     />
     <!--===============================================================================================-->
     <link
       rel="stylesheet"
       type="text/css"
-      href="static/vendor/daterangepicker/daterangepicker.css"
+      href="/static/vendor/daterangepicker/daterangepicker.css"
     />
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="/static/css/util.css" />
@@ -63,7 +63,6 @@
     <div class="limiter">
       <div class="container-login100">
         <div class="wrap-login100">
-         
           <form
             class="login100-form validate-form"
             method="POST"
@@ -73,7 +72,6 @@
             <span class="login100-form-title p-b-43">
               Login to continue
             </span>
-            
             <div
               class="wrap-input100 validate-input"
               data-validate="Valid email is required: ex@abc.xyz"
@@ -125,38 +123,56 @@
             </div>
 
             <div class="login100-form-social flex-c-m">
-              <a target="_blank" href="/facebook/" class="login100-form-social-item flex-c-m bg1 m-r-5">
+              <a
+                target="_blank"
+                href="/facebook/"
+                class="login100-form-social-item flex-c-m bg1 m-r-5"
+              >
                 <i class="fa fa-facebook-f" aria-hidden="true"></i>
               </a>
 
-              <a href="/twitter/" class="login100-form-social-item flex-c-m bg2 m-r-5">
+              <a
+                href="/twitter/"
+                class="login100-form-social-item flex-c-m bg2 m-r-5"
+              >
                 <i class="fa fa-twitter" aria-hidden="true"></i>
               </a>
             </div>
           </form>
           <div
             class="login100-more"
-            style="background-image: url('static/images/bg-01.jpg');"
+            style="background-image: url('/static/images/bg-01.jpg');"
           ></div>
         </div>
       </div>
     </div>
 
+    <hr style="background-color: #000000;" />
+    <p style="text-align: center;">&copy; 2020 A Pratik Pawar Creation</p>
     <!--===============================================================================================-->
-    <script src="static/vendor/jquery/jquery-3.2.1.min.js"></script>
+    
+    <script>
+    {% if msg %}
+      alert("{{msg}}");
+    {% elif User %}
+      alert("{{User}}");
+    </script>
+    {% endif %}
     <!--===============================================================================================-->
-    <script src="static/vendor/animsition/js/animsition.min.js"></script>
+    <script src="/static/vendor/jquery/jquery-3.2.1.min.js"></script>
     <!--===============================================================================================-->
-    <script src="static/vendor/bootstrap/js/popper.js"></script>
-    <script src="static/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/vendor/animsition/js/animsition.min.js"></script>
     <!--===============================================================================================-->
-    <script src="static/vendor/select2/select2.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/popper.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
     <!--===============================================================================================-->
-    <script src="static/vendor/daterangepicker/moment.min.js"></script>
-    <script src="static/vendor/daterangepicker/daterangepicker.js"></script>
+    <script src="/static/vendor/select2/select2.min.js"></script>
     <!--===============================================================================================-->
-    <script src="static/vendor/countdowntime/countdowntime.js"></script>
+    <script src="/static/vendor/daterangepicker/moment.min.js"></script>
+    <script src="/static/vendor/daterangepicker/daterangepicker.js"></script>
     <!--===============================================================================================-->
-    <script src="static/js/main.js"></script>
+    <script src="/static/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="/static/js/main.js"></script>
   </body>
 </html>

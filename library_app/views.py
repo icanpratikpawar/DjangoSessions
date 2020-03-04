@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, render_to_response
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from .models import Login, Books
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied, ValidationError
@@ -7,6 +7,9 @@ from django.conf import settings
 from django.urls import resolve
 
 # Decorators function to prohibit illegal access to
+b = ""
+
+
 def prohibit_url_access(func):
     def wrap(request, *args, **kwargs):
         if "user" in request.session:
@@ -33,14 +36,38 @@ def twitter(request):
     return HttpResponseRedirect("http://twitter.com")
 
 
+def password_reset(request, user_name):
+    a = Login.objects.filter(user_name=user_name)
+    if a:
+        a.update(pass_word=request.POST['pswd'])
+        return render(request, 'index.html')
+
+
+def password_change(request, user_name):
+    a = Login.objects.filter(user_name=user_name)
+    if a:
+        return render(request, 'password_change.html', {'user_name': user_name})
+    else:
+        pass
+
+
 def email_verify(request):
-    return render(request, 'emailverify.html')
+    # Class(Object) to get the url name
+    current_url = resolve(request.path_info).url_name
+    if current_url == "emailverify":
+        return render(request, 'emailverify.html')
 
 
 def send_email(request):
-    send_mail("Hello Dada", "This is my first automated message\n\nhttp://127.0.0.1:8000/",
-              settings.EMAIL_HOST_USER, [request.POST['send_email']])
-    return redirect('/')
+    a = Login.objects.filter(email_id=request.POST['send_email'])
+    if a:
+        b = "http://127.0.0.1:8000/password_change/"+a[0].user_name
+        send_mail("Hello "+a[0].user_name, "This is an automated message, It A password reset for your account was requested. Please click the button below to change your password.\n "+b,
+                  settings.EMAIL_HOST_USER, [request.POST['send_email']])
+        return render(request, 'index.html', {'msg': 'Succesfully send the reset password message'})
+    else:
+        return HttpResponse("!!..Not Registered..!!")
+
 
 @prohibit_url_access
 def logout(request):
@@ -48,12 +75,14 @@ def logout(request):
     # return render(request, 'index.html', {'text': 'This is my text & I am its creator'})
     return redirect('/')
 
+
 def index(request):
     if "user" in request.session:
         return redirect("/home")
     else:
         # Starting page of my website
         return render(request, 'index.html')
+
 
 def home(request):
     # Method to verify the right login details by admin
@@ -65,7 +94,7 @@ def home(request):
                 request.session["user"] = a[0].user_name
                 return render(request, "home.html", {'user': request.session["user"]})
             else:
-                return render(request, 'index.html', {'User': 'Check the username & password'})
+                return render(request, 'index.html', {'User': 'Check the username and password'})
         except Exception:
             raise PermissionDenied
 
