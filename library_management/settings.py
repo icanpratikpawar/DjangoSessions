@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from django.http import request
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -131,14 +132,10 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'icanpratikpawar@gmail.com'
 EMAIL_HOST_PASSWORD = 'pr@tik12345'
-# ------------------------------------------------------------------------------
-# Expire my session on browser close
-# SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
-
-#Auth authentication google
-SITE_ID=1
-LOGIN_REDIRECT_URL='/'
+# Auth authentication google
+SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'
 
 # Static files (CSS, JavaScript, Images)
 
@@ -151,3 +148,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'asset')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# ------------------------------------------------------------------------------
+# Expire my session on browser close
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# SESSION_COOKIE_AGE = 10  # set just 10 seconds to test
+# SESSION_SAVE_EVERY_REQUEST = True

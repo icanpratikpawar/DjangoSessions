@@ -10,10 +10,12 @@
     <link rel="stylesheet" type="text/css" href="/static/css/main.css" />
     <!--===============================================================================================-->
   </head>
-  <body style="background-image: url('/static/images/modern-lamp-books.jpg');background-size:cover;">
+  <body
+    style="background-image: url('/static/images/modern-lamp-books.jpg');background-size:cover;"
+  >
     <p class="input100" style="color: black;">View Books Here:</p>
-    <hr>
-    <br>
+    <hr />
+    <br />
     <table border="1" width="800">
       <tr>
         <th>Book No</th>
@@ -23,9 +25,10 @@
         <th>Update_Details</th>
         <th>Delete_Details</th>
       </tr>
+
       {% for book in books %}
       <tr>
-        <th>{{book.id}}</th>
+        <th>{{ book.id }}</th>
         <td>{{ book.book_name }}</td>
         <td>{{ book.author_name }}</td>
         <td>{{ book.book_type }}</td>
@@ -33,6 +36,16 @@
         <td><a href="/delete_record/{{book.id}}/">Delete</a></td>
       </tr>
       {% endfor %}
+      <!-- {% for rows in sheet %}
+      <tr>
+        <th>{{ rows.0.value }}</th>
+        <td>{{ rows.1.value }}</td>
+        <td>{{ rows.2.value }}</td>
+        <td>{{ rows.3.value }}</td>
+        <td><a href="/bookview/update/{{rows.0.value}}">Update</a></td>
+        <td><a href="/delete_record/{{rows.0.value}}/">Delete</a></td>
+      </tr>
+      {% endfor %} -->
     </table>
   </body>
 </html>
