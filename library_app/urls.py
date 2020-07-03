@@ -5,7 +5,7 @@ urlpatterns = [
     path('emailverify/', views.email_verify,name="emailverify"),
     path('home/', views.home, name="home"),
     path('msg/', views.index, name="msg"),
-
+    
     path('password_reset/<str:user_name>/', views.password_reset, name="password_reset"),
     path('password_change/<str:user_name>', views.password_change, name="passChange"),
     path('google_auth/', TemplateView.as_view(

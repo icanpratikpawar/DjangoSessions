@@ -18,12 +18,12 @@
     <br />
     <table border="1" width="800">
       <tr>
-        <th>Book No</th>
+        <th>Book_no</th>
         <th>Book_name</th>
-        <th>author_name</th>
+        <th>Author_name</th>
         <th>Book_type</th>
-        <th>Update_Details</th>
-        <th>Delete_Details</th>
+        <th>Update_details</th>
+        <th>Delete_details</th>
       </tr>
 
       {% for book in books %}
@@ -47,5 +47,11 @@
       </tr>
       {% endfor %} -->
     </table>
+  
+    {% if details %}
+    <script>
+      alert("{{ details }}");
+    </script>
+    {% endif %}
   </body>
 </html>

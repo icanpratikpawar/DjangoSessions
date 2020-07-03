@@ -7,11 +7,11 @@ from django.conf import settings
 from django.urls import resolve
 from openpyxl import load_workbook
 
+
 workbook = load_workbook(
     filename="/home/pratik/Workspace/Djangoprograms/library_management/static/excelfiles/book_manage.xlsx")
 workbook.active = 1
 sheet = workbook.active
-
 b = ""
 # Decorators function to prohibit illegal access to the urls directly
 
@@ -82,12 +82,10 @@ def logout(request):
 
 
 def index(request):
-    request.session.set_expiry(0)
     if "user" in request.session:
         return redirect("/home")
     else:
         # Starting page of my website
-        request.session.set_expiry(0)
         return render(request, 'index.html')
 
 
@@ -99,7 +97,6 @@ def home(request):
                 user_name=request.POST['username'], pass_word=request.POST['pswd'])
             if a:
                 request.session["user"] = a[0].user_name
-
                 return render(request, "home.html", {'user': request.session["user"]})
             else:
                 return render(request, 'index.html', {'User': 'Check the username and password'})
@@ -107,7 +104,6 @@ def home(request):
             raise PermissionDenied
 
     else:
-        request.session.set_expiry(0)
         return render(request, "home.html", {'user': request.session["user"]})
 
 
@@ -131,15 +127,15 @@ def books_validate(request):
         filename="/home/pratik/Workspace/Djangoprograms/library_management/static/excelfiles/book_manage.xlsx")
     print("Success")
 
-    # return render(request, 'home.html', {'details': 'Books Details Submitted Succesfully'})
-    return redirect("/home")
+    # return redirect("/home")
+    return render(request, "home.html", {'user': request.session["user"], 'details': 'Books Details Submitted Succesfully'})
 
 
 @prohibit_url_access
 def book_view(request):
-    #query =   # [0:2]
-    shee=sheet.iter_rows(min_row=2,max_row=sheet.max_row)
-    return render(request, 'bookview.html', {'books': Books.objects.all(),'sheet':shee})
+    # query =   # [0:2]
+    shee = sheet.iter_rows(min_row=2, max_row=sheet.max_row)
+    return render(request, 'bookview.html', {'books': Books.objects.all(), 'sheet': shee})
 
 
 @prohibit_url_access
@@ -152,8 +148,8 @@ def delete_record(request, id=None):
                     filename="/home/pratik/Workspace/Djangoprograms/library_management/static/excelfiles/book_manage.xlsx")
                 print("Success")
     Books.objects.filter(id=id).delete()
-    querys = {'Delete': 'Record Deleted Succesfully!'}
-    # return render(request, 'bookview.html',querys)
+    details = {'Delete': 'Record Deleted Succesfully!'}
+    # return render(request, 'bookview.html', details)
     return redirect('/bookview')
 
 

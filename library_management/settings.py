@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 from django.http import request
+from dotenv import load_dotenv
+load_dotenv()
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,16 +24,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '2+-f-c2hsz_6=*1mye9t8rb*1fc3z^sup6ac(p5g(j$zd^w(rj'
+SECRET_KEY =os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG')
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,7 +45,6 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-
 ]
 
 MIDDLEWARE = [
@@ -84,10 +84,10 @@ WSGI_APPLICATION = 'library_management.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'library',
-        'HOST': 'localhost',
-        'USER': 'root',
-        'PASSWORD': 'Pr@tik12345',
+        'NAME': os.getenv('MYSQL_DATABASE'),
+        'HOST': os.getenv('MYSQL_HOST'),
+        'USER': os.getenv('MYSQL_USERNAME'),
+        'PASSWORD':os.getenv('MYSQL_PASSWORD') ,
         'PORT': '3306',
     }
 }
@@ -130,8 +130,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'icanpratikpawar@gmail.com'
-EMAIL_HOST_PASSWORD = 'pr@tik12345'
+EMAIL_HOST_USER =  os.getenv('EMAIL_USER')
+EMAIL_HOST_PASSWORD =  os.getenv('EMAIL_PASSWORD')
 
 # Auth authentication google
 SITE_ID = 1

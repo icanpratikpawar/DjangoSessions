@@ -151,13 +151,6 @@
     <p style="text-align: center;">&copy; 2020 A Pratik Pawar Creation</p>
     <!--===============================================================================================-->
     
-    <script>
-    {% if msg %}
-      alert("{{msg}}");
-    {% elif User %}
-      alert("{{User}}");
-    </script>
-    {% endif %}
     <!--===============================================================================================-->
     <script src="/static/vendor/jquery/jquery-3.2.1.min.js"></script>
     <!--===============================================================================================-->
@@ -174,5 +167,14 @@
     <script src="/static/vendor/countdowntime/countdowntime.js"></script>
     <!--===============================================================================================-->
     <script src="/static/js/main.js"></script>
+
+    
+    <script>
+      {% if msg %}
+        alert("{{msg}}");
+      {% elif User %}
+        alert("{{User}}");
+      {% endif %}
+    </script>
   </body>
 </html>
